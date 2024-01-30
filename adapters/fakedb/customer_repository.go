@@ -25,3 +25,10 @@ func (r *CustomerRepositoryFakeDB) Create(_ context.Context, customer internal.C
 
 	return nil
 }
+
+func NewFakeDBCustomerRepository() CustomerRepositoryFakeDB {
+	return CustomerRepositoryFakeDB{
+		mux:       sync.Mutex{},
+		customers: make(map[internal.CustomerName]internal.Customer),
+	}
+}

@@ -6,18 +6,19 @@ import (
 )
 
 type CreateCustomerUseCase struct {
-	internal.CustomerRepository
+	customer internal.CustomerRepository
 }
 
 func (uc CreateCustomerUseCase) Create(ctx context.Context, customer internal.Customer) error {
-	err := uc.CustomerRepository.Create(ctx, customer)
+	err := uc.customer.Create(ctx, customer)
 	if err != nil {
 		return err
 	}
-	
+
 	return nil
 }
 
-func NewCreateCustomerUseCase() CreateCustomerUseCase {
+func NewCreateCustomerUseCase(db internal.CustomerRepository) CreateCustomerUseCase {
+
 	return CreateCustomerUseCase{}
 }
