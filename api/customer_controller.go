@@ -18,12 +18,12 @@ func (h CustomerController) CreateCustomer(w http.ResponseWriter, r *http.Reques
 	var customer internal.Customer
 	err := json.NewDecoder(r.Body).Decode(&customer)
 
-	marshallCustomer, err := internal.MarshallCustomer(customer)
+	marshalledCustomer, err := internal.MarshallCustomer(customer)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("malformed customer data, %v", err), http.StatusBadRequest)
 	}
 
-	err = h.UseCase.Create(r.Context(), marshallCustomer)
+	err = h.UseCase.Create(r.Context(), marshalledCustomer)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("error creting customer, %v", err), http.StatusBadRequest)
 	}

@@ -10,7 +10,11 @@ type CreateCustomerUseCase struct {
 }
 
 func (uc CreateCustomerUseCase) Create(ctx context.Context, customer internal.Customer) error {
-
+	err := uc.CustomerRepository.Create(ctx, customer)
+	if err != nil {
+		return err
+	}
+	
 	return nil
 }
 
