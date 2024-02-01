@@ -19,9 +19,9 @@ func MarshallCustomer(customer Customer) (internal.Customer, error) {
 	}
 
 	return internal.Customer{
-		internal.CustomerName(customer.Name),
-		internal.CustomerLastName(customer.LastName),
-		internal.CustoemrEmail(customer.Email),
-		internal.CustomerMobile(mobile),
+		Name:     internal.CustomerName(customer.Name),
+		LastName: internal.CustomerLastName(customer.LastName),
+		Email:    internal.CustomerEmail(customer.Email),
+		Mobile:   internal.CustomerMobile(mobile),
 	}, nil
 }

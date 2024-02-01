@@ -2,20 +2,20 @@ package fakedb
 
 import (
 	"context"
+	"github.com/yakiza/salty"
 	"github.com/yakiza/salty/internal"
 	"sync"
 )
 
-type CustomerRepository interface {
-	Create(ctx context.Context) error
-}
+var _ salty.CustomerRepository = &CustomerRepository{}
 
-type CustomerRepositoryFakeDB struct {
+type CustomerRepository struct {
 	mux       sync.Mutex
 	customers map[internal.CustomerName]internal.Customer
 }
 
-func (r *CustomerRepositoryFakeDB) Create(_ context.Context, customer internal.Customer) error {
+// Create creates a customer and stores it in a local dictionary
+func (r *CustomerRepository) Create(_ context.Context, customer internal.Customer) error {
 	r.mux.Lock()
 	defer r.mux.Unlock()
 
@@ -26,8 +26,8 @@ func (r *CustomerRepositoryFakeDB) Create(_ context.Context, customer internal.C
 	return nil
 }
 
-func NewFakeDBCustomerRepository() CustomerRepositoryFakeDB {
-	return CustomerRepositoryFakeDB{
+func NewCustomerRepository() *CustomerRepository {
+	return &CustomerRepository{
 		mux:       sync.Mutex{},
 		customers: make(map[internal.CustomerName]internal.Customer),
 	}

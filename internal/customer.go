@@ -3,11 +3,11 @@ package internal
 type Customer struct {
 	Name     CustomerName
 	LastName CustomerLastName
-	Email    CustoemrEmail
+	Email    CustomerEmail
 	Mobile   CustomerMobile
 }
 
 type CustomerName string
 type CustomerLastName string
-type CustoemrEmail string
+type CustomerEmail string
 type CustomerMobile int
